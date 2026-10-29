@@ -1,0 +1,197 @@
+@import '@fontsource-variable/fraunces/opsz.css';
+@import '@fontsource-variable/fraunces/opsz-italic.css';
+@import '@fontsource-variable/hanken-grotesk/index.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Design system (Phase 2)
+  ───────────────────────
+  Grounds   ivory (limewash) · sand (dawn) · charcoal
+  Accents   bronze/“dam” on light grounds · sandstone on charcoal
+  Type      Fraunces (display) · Hanken Grotesk (text)
+  Two CSS variables carry the accent and focus colour so every component works on either ground:
+    --accent  text accent (eyebrows, links)      light: #7A5A36   dark: #C6A97F
+    --focus   focus-ring colour                  light: #7A5A36   dark: #C6A97F
+*/
+
+:root {
+  --accent: #7a5a36;
+  --focus: #7a5a36;
+}
+
+/* ─── Base ─────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-limewash text-umber font-sans;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    font-weight: 380;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { cursor: pointer; background: none; border: none; padding: 0; font: inherit; color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection { background: #c6a97f; color: #1e1a16; }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #e4dac6; }
+  ::-webkit-scrollbar-thumb { background: #a58660; border-radius: 4px; }
+}
+
+/* ─── Grounds ───────────────────────────────────────────── */
+@layer components {
+  .ground-ivory    { @apply bg-limewash text-umber; }
+  .ground-ivory-deep { @apply bg-limewash-deep text-umber; }
+  .ground-sand     {
+    @apply bg-dawn text-umber;
+    --accent: #5b4021;
+    --focus: #5b4021;
+  }
+  .ground-charcoal {
+    @apply bg-charcoal text-limewash;
+    --accent: #c6a97f;
+    --focus: #c6a97f;
+  }
+  /* Use on any element that sits on a dark ground but is not itself .ground-charcoal */
+  .on-dark { --accent: #c6a97f; --focus: #c6a97f; }
+}
+
+/* ─── Utilities ─────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  .section-pad    { @apply py-24 lg:py-36; }
+  .section-pad-sm { @apply py-16 lg:py-24; }
+  .container-resort { @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-12; }
+
+  .hairline { @apply block h-px w-full bg-current opacity-20; }
+}
+
+/* ─── Components ────────────────────────────────────────── */
+@layer components {
+
+  /* ── Type ── */
+  .display-fraunces {
+    font-variation-settings: 'opsz' 144, 'SOFT' 0;
+    letter-spacing: -0.022em;
+    word-spacing: 0.06em;
+    font-variant-numeric: lining-nums;
+  }
+  .display-fraunces-sm {
+    font-variation-settings: 'opsz' 48, 'SOFT' 0;
+    letter-spacing: -0.005em;
+    word-spacing: 0.04em;
+    font-variant-numeric: lining-nums;
+  }
+  .eyebrow {
+    @apply font-sans text-[12px] font-medium uppercase tracking-[0.22em];
+    color: var(--accent);
+  }
+  .lede { @apply font-sans text-[18px] leading-[1.65]; }
+  .body-copy { @apply font-sans text-[16px] leading-[1.75]; }
+  .caption { @apply font-sans text-[12px] leading-snug; }
+
+  /* ── Buttons (pill, 48px+ touch target) ── */
+  .btn-bronze, .btn-dam {
+    @apply inline-flex items-center justify-center gap-3 px-7 text-[15px] font-sans font-medium;
+    @apply bg-dam text-limewash transition-colors duration-300 hover:bg-dam-dark;
+    min-height: 52px;
+    border-radius: 999px;
+  }
+  .btn-sand, .btn-primary {
+    @apply inline-flex items-center justify-center gap-3 px-7 text-[15px] font-sans font-medium;
+    @apply bg-sandstone text-charcoal transition-colors duration-300 hover:bg-sandstone-light;
+    min-height: 52px;
+    border-radius: 999px;
+  }
+  .btn-line {
+    @apply inline-flex items-center justify-center gap-3 px-7 text-[15px] font-sans font-medium;
+    @apply border border-umber/40 text-umber transition-colors duration-300 hover:bg-umber hover:text-limewash;
+    min-height: 52px;
+    border-radius: 999px;
+  }
+  .btn-line-light {
+    @apply inline-flex items-center justify-center gap-3 px-7 text-[15px] font-sans font-medium;
+    @apply border border-limewash/40 text-limewash transition-colors duration-300 hover:border-sandstone hover:text-sandstone;
+    min-height: 52px;
+    border-radius: 999px;
+  }
+
+  /* ── Text link with a retracting underline ── */
+  .link-underline {
+    @apply font-sans text-[15px] font-medium;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+    padding-bottom: 3px;
+    transition: background-size .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .link-underline:hover { background-size: 0% 1px; background-position: 100% 100%; }
+
+  /* ── Forms (ivory ground) ── */
+  .field {
+    @apply w-full bg-transparent border-0 border-b border-umber/35 rounded-none py-3.5 font-sans text-[16px] text-umber;
+    @apply placeholder:text-hajar/70 transition-colors duration-300;
+    @apply focus:outline-none focus:border-dam;
+  }
+  .field[aria-invalid='true'] { @apply border-red-800; }
+  .field-label { @apply mb-1 block font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-hajar; }
+  .field-error { @apply mt-2 font-sans text-[13px] text-red-800; }
+
+  /* ── Image frame: zoom only on hover-capable devices, never required to read ── */
+  .img-zoom { overflow: hidden; }
+  .img-zoom > * { transition: transform 1.1s cubic-bezier(0.16,1,0.3,1); }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .img-zoom:hover > * { transform: scale(1.04); }
+  }
+}
+
+/* ─── Home hero arch ────────────────────────────────────── */
+/* Hero arch at rest. Mirrors archInset() in CinematicHero so there is no jump when JS takes over. */
+.hero-arch {
+  clip-path: inset(14svh 5vw 6svh 62vw round 16.5vw 16.5vw 0 0);
+}
+@media (max-width: 767px) {
+  .hero-arch { clip-path: inset(31svh 14vw 31svh 14vw round 36vw 36vw 0 0); }
+}
+
+/* ─── Lightbox ──────────────────────────────────────────── */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(20, 17, 14, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

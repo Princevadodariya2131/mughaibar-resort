@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="8" fill="#171714"/>
+  <!-- Fort silhouette -->
+  <rect x="10" y="40" width="44" height="18" fill="#B99A72"/>
+  <rect x="10" y="32" width="8" height="12" fill="#B99A72"/>
+  <rect x="26" y="28" width="12" height="16" fill="#B99A72"/>
+  <rect x="46" y="32" width="8" height="12" fill="#B99A72"/>
+  <!-- Battlements -->
+  <rect x="10" y="28" width="4" height="6" fill="#B99A72"/>
+  <rect x="16" y="28" width="4" height="6" fill="#B99A72"/>
+  <rect x="26" y="22" width="4" height="8" fill="#B99A72"/>
+  <rect x="34" y="22" width="4" height="8" fill="#B99A72"/>
+  <rect x="46" y="28" width="4" height="6" fill="#B99A72"/>
+  <rect x="52" y="28" width="4" height="6" fill="#B99A72"/>
+  <!-- Door arch -->
+  <path d="M27 58 L27 48 Q32 42 37 48 L37 58 Z" fill="#171714"/>
+</svg>

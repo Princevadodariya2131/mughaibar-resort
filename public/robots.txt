@@ -1,0 +1,8 @@
+# Robots.txt — Mughaibar Fort Resort concept website
+# This is a redesign demo, not the official property website.
+# Official website: https://mughaibarfortresort.com/
+
+User-agent: *
+Allow: /
+
+Sitemap: /sitemap.xml
